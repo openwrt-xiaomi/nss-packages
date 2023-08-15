@@ -86,10 +86,9 @@ endef
 
 define KernelPackage/qca-nss-ecm-standard
 $(call KernelPackage/qca-nss-ecm/Default)
-  DEPENDS+= \
-	+PACKAGE_kmod-qca-mcs:kmod-qca-mcs \
-	+PACKAGE_kmod-pppol2tp:kmod-pppol2tp \
-	+PACKAGE_kmod-qca-nat46:kmod-qca-nat46
+  DEPENDS+=+kmod-qca-mcs \
+	+kmod-pppol2tp \
+	+kmod-qca-nat46
   VARIANT:=standard
 endef
 
@@ -106,10 +105,14 @@ define KernelPackage/qca-nss-ecm-premium/Default
 $(call KernelPackage/qca-nss-ecm/Default)
   TITLE+:= (with premium features)
   VARIANT:=premium
-  DEPENDS+:=+kmod-qca-hyfi-bridge +kmod-qca-mcs +kmod-qca-nat46
-ifeq ($(CONFIG_TARGET_ipq_ipq40xx)$(CONFIG_TARGET_ipq40xx),)
-  DEPENDS+=+kmod-bonding
-endif
+  DEPENDS+= \
+	+kmod-qca-hyfi-bridge
+	+PACKAGE_kmod-qca-mcs:kmod-qca-mcs \
+	+PACKAGE_kmod-pppol2tp:kmod-pppol2tp \
+	+PACKAGE_kmod-qca-nat46:kmod-qca-nat46
+  ifeq ($(CONFIG_TARGET_ipq_ipq40xx)$(CONFIG_TARGET_ipq40xx),)
+    DEPENDS+=+kmod-bonding
+  endif
 endef
 
 define KernelPackage/qca-nss-ecm-premium/Description/Default
@@ -328,7 +331,10 @@ menu "ECM Configuration"
 endmenu
 endef
 
-$(eval $(call KernelPackage,qca-nss-ecm-noload))
+#$(eval $(call KernelPackage,qca-nss-ecm-noload))
+
 $(eval $(call KernelPackage,qca-nss-ecm-standard))
-$(eval $(call KernelPackage,qca-nss-ecm-premium-noload))
-$(eval $(call KernelPackage,qca-nss-ecm-premium))
+
+#$(eval $(call KernelPackage,qca-nss-ecm-premium-noload))
+
+#$(eval $(call KernelPackage,qca-nss-ecm-premium))
