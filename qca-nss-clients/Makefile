@@ -116,7 +116,7 @@ define KernelPackage/qca-nss-drv-pppoe
   SUBMENU:=Network Devices
   TITLE:=Kernel driver for NSS (connection manager) - PPPoE
   DEPENDS:=+@NSS_DRV_PPPOE_ENABLE +kmod-pppoe \
-  		+PACKAGE_kmod-bonding:kmod-bonding \
+		+PACKAGE_kmod-bonding:kmod-bonding \
 		+PACKAGE_kmod-qca-nss-drv:kmod-qca-nss-drv
   FILES:=$(PKG_BUILD_DIR)/pppoe/qca-nss-pppoe.ko
   AUTOLOAD:=$(call AutoLoad,51,qca-nss-pppoe)
@@ -309,7 +309,7 @@ define KernelPackage/qca-nss-drv-lag-mgr
 	   +TARGET_ipq_ipq60xx_64:kmod-qca-nss-drv-vlan-mgr \
 	   +TARGET_ipq60xx:kmod-qca-nss-drv-vlan-mgr \
 	   +PACKAGE_kmod-qca-nss-drv:kmod-qca-nss-drv \
-	   +kmod-bonding
+	   +PACKAGE_kmod-bonding:kmod-bonding
   FILES:=$(PKG_BUILD_DIR)/lag/qca-nss-lag-mgr.ko
   AUTOLOAD:=$(call AutoLoad,51,qca-nss-lag-mgr)
 endef
